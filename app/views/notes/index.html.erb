@@ -1,4 +1,18 @@
-<div>
-  <h1 class="font-bold text-4xl">Notes#index</h1>
-  <p>Find me in app/views/notes/index.html.erb</p>
+<div class="max-w-lg mx-auto">
+  <h1 class="text-xl font-bold mb-4">Live Character Counter</h1>
+
+  <%= form_with model: @note, url: notes_path, method: :post, class: "space-y-4", data: { controller: "character-counter", character-counter-max-value: 100 } do |f| %>
+    <div>
+      <%= f.text.area :content, rows: 5, class: "w-full border p-2", data: { action: "input->character-counter#updateCounter", character-counter-target: "input"} %>
+    </div>
+    <p class="text-sm text-gray-600" data-character-counter-target="counter"></p>
+    <%= f.submit "Save Note", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+  <% end %>
+
+  <div class="mt-8">
+    <h2 class="text-lg font-semibold mb-2">Saved Notes</h2>
+    <% @notes.each do |note| %>
+      <p class="boder-b py-2"><%= note.content %></p>
+    <% end %>
+  </div>
 </div>
